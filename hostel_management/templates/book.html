@@ -1,0 +1,127 @@
+<!DOCTYPE html> {% extends "base.html" %} {% load bookings_extras %} {% load staticfiles %} {% block headercard %}
+<h2 class="mdl-card__title-text"> Room Allocation
+</h2>
+{% endblock %} {% block mainlinks %}
+<a class="mdl-navigation__link" href="/index/">Home</a>
+<a class="mdl-navigation__link" href="/logout/">Logout</a>
+
+
+{% endblock %}
+
+{% block content %}
+<form action="." method="POST" style="padding-left:20px; padding-bottom : 50px; padding-top : 20px; padding-bottom: 300px" name = "form1" onsubmit="required()">
+
+    <span class="textboxroom">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-bottom:20px;">
+            <input class="mdl-textfield__input" type="text" name="occupant" id="occupant">
+            <label class="mdl-textfield__label" for="occupant">Name</label>
+        </div>
+        <br>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="padding-bottom:20px;">
+            <input class="mdl-textfield__input" type="text" name="roll_number" id="roll_number">
+            <label class="mdl-textfield__label" for="roll_number">USN</label>
+        </div>
+    </span>
+    <div id="content" style="padding-bottom:15px;">
+        <div id="form" style="padding-top:40px;">
+        </div>
+    </div>
+    <span class="floor">
+        <span class="room">
+            <span class="roomlabel3">315</span><hr class="divider">
+            <div class="triple">
+                <label class="container">
+                    {% is_occupied "315A" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="315A" disabled>
+
+                    <span class="checkmark">
+                        <span class="bed">A</span>
+                    </span>
+
+                    {% elif occup == 0%}
+                    <input type="radio" name="room_number" value="315A">
+                    <span class="checkmark">
+                        <span class="bed">A</span>
+                    </span>
+                    {% endif %}
+
+                </label>
+                <label class="container">
+                    {% is_occupied "315B" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="315B" disabled>
+                    <span class="checkmark"><span class="bed">B</span></span>
+
+                    {% elif occup == 0 %}
+                    <input type="radio" name="room_number" value="315B">
+                    <span class="checkmark"><span class="bed">B</span></span>
+                    {% endif %}
+                </label>
+                <label class="container">
+                    {% is_occupied "315C" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="315C" disabled>
+                    <span class="checkmark"><span class="bed">C</span></span>
+
+                    {% elif occup == 0 %}
+                    <input type="radio" name="room_number" value="315C">
+                    <span class="checkmark"><span class="bed">C</span></span>
+                    {% endif %}
+                </label>
+            </div>
+        </span>
+        <span class="room">
+                <span class="roomlabel2">316</span><hr class="divider">
+            <div class="double">
+                <label class="container">
+                    {% is_occupied "316A" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="316A" disabled>
+                    <span class="checkmark"><span class="bed">A</span></span>
+
+                    {% elif occup == 0 %}
+                    <input type="radio" name="room_number" value="316A">
+                    <span class="checkmark"><span class="bed">A</span></span>
+                    {% endif %}
+                </label>
+                <label class="container">
+                    {% is_occupied "316B" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="316B" disabled>
+                    <span class="checkmark"><span class="bed">B</span></span>
+
+                    {% elif occup == 0 %}
+                    <input type="radio" name="room_number" value="316B">
+                    <span class="checkmark"><span class="bed">B</span></span>
+                    {% endif %}
+                </label>
+            </div>
+        </span>
+        <span class="room">
+                <span class="roomlabel1">317</span><hr class="divider">
+            <div class="single">
+                <label class="container">
+                    {% is_occupied "317" as occup %} {% if occup == 1 %}
+                    <input type="radio" name="room_number" value="317" disabled>
+                    <span class="checkmark"><span class="bed">A</span></span>
+
+                    {% elif occup == 0 %}
+                    <input type="radio" name="room_number" value="317">
+                    <span class="checkmark"><span class="bed">A</span></span>
+                    {% endif %}
+                </label>
+            </div>
+        </span>
+    </span>
+
+    <span class="submit">
+        <input type="submit" value="Submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width: 150px; background-color:rgb(212, 209, 209)"
+            id="sub" onclick="return radioval()">
+    </span>
+    <br>
+    {% if results == 1 %}
+        <div class="alert alert-error" style="padding-bottom: 100px">
+        <strong>Error: You have already registered a room.</strong>
+    </div>
+    {% endif %}
+
+
+</form>
+
+{% endblock %}
